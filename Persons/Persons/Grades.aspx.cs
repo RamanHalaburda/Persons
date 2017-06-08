@@ -12,19 +12,18 @@ using System.Text;
 
 namespace Persons
 {
-    public partial class Passports : System.Web.UI.Page
+    public partial class Grades : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (TextBox1.Text == "" || TextBox2.Text == "")
+            if (TextBox1.Text == "")
             {
-                PlaceHolder1.Controls.Add(new Literal { Text = "Введите данные для просмотра всех пасспортов одного гражданина." });
+                PlaceHolder1.Controls.Add(new Literal { Text = "Введите минимальное значение отметки." });
             }
             else
             {
-                string ps = TextBox1.Text;
-                string pn = TextBox2.Text;
-                DataTable dt = this.GetData(ps, pn);
+                string minGrade = TextBox1.Text;
+                DataTable dt = this.GetData(minGrade);
                 StringBuilder html = new StringBuilder();
                 html.Append("<table border = '1'>");
 
@@ -55,11 +54,10 @@ namespace Persons
             }
         }
 
-        private DataTable GetData(string _ps, string _pn)
+        private DataTable GetData(string _mg)
         {
             string constr = ConfigurationManager.ConnectionStrings["PassportConnection"].ConnectionString;
-            string query = "SELECT [passportFirstName],[passportLastName],[passportNumber],[passportSeria] FROM [dbo].[view] where ps='" 
-                + _ps + "' and pn='" + _pn + "';";
+            string query = "select students.first_name, students.last_name, students.email, student_grade.test, student_grade.grade from students join student_grade on students.id = student_grade.student_id where grade > " + _mg + ";";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -80,6 +78,7 @@ namespace Persons
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+
         }
     }
 }

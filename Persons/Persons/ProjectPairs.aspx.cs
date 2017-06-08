@@ -12,19 +12,13 @@ using System.Text;
 
 namespace Persons
 {
-    public partial class Passports : System.Web.UI.Page
+    public partial class ProjectPairs : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (TextBox1.Text == "" || TextBox2.Text == "")
+            if (!this.IsPostBack)
             {
-                PlaceHolder1.Controls.Add(new Literal { Text = "Введите данные для просмотра всех пасспортов одного гражданина." });
-            }
-            else
-            {
-                string ps = TextBox1.Text;
-                string pn = TextBox2.Text;
-                DataTable dt = this.GetData(ps, pn);
+                DataTable dt = this.GetData();
                 StringBuilder html = new StringBuilder();
                 html.Append("<table border = '1'>");
 
@@ -55,11 +49,18 @@ namespace Persons
             }
         }
 
-        private DataTable GetData(string _ps, string _pn)
+        private DataTable GetData()
         {
             string constr = ConfigurationManager.ConnectionStrings["PassportConnection"].ConnectionString;
-            string query = "SELECT [passportFirstName],[passportLastName],[passportNumber],[passportSeria] FROM [dbo].[view] where ps='" 
-                + _ps + "' and pn='" + _pn + "';";
+            string query = "select a.last_name as [one last name], b.last_name as [two last name], p.title as [title of project]"
+                               + " from project_pairs"
+                               + "  join students as a"
+                               + "      on project_pairs.project1_id = a.id"
+                               + "  join students as b"
+                               + "      on project_pairs.project2_id = b.id"
+                               + "  join [dbo].[student_projects] as p"
+                               + "      on project_pairs.id = p.id;";
+            //string query = "select a.last_name, b.last_name, p.title from project_pairs join students as a on project_pairs.project1_id = a.id join students as b on project_pairs.project2_id = b.id join [dbo].[student_projects] as p on project_pairs.id = p.id;";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -76,10 +77,6 @@ namespace Persons
                     }
                 }
             }
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
         }
     }
 }
