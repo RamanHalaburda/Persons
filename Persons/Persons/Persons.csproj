@@ -207,7 +207,9 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="SearchByDate.aspx" />
     <Content Include="Site.Master" />
+    <Content Include="StudentProjects.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -381,6 +383,13 @@
       <DependentUpon>ProjectPairs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchByDate.aspx.cs">
+      <DependentUpon>SearchByDate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchByDate.aspx.designer.cs">
+      <DependentUpon>SearchByDate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -396,6 +405,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="StudentProjects.aspx.cs">
+      <DependentUpon>StudentProjects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentProjects.aspx.designer.cs">
+      <DependentUpon>StudentProjects.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
