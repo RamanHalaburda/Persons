@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SearchByDate.aspx.cs" Inherits="Persons.SearchByDate" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p>
-        <br />
-        Год:
+    <br />
+    Год:
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
     </p>
     <p>
